@@ -18,7 +18,14 @@
             VerticalScrollBarVisibility="Always">
 
             <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
-
+                
+                <Label
+                      Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      Margin="15"
+                      HorizontalOptions="Center"
+                      TextColor="Purple" />
+                
                 <Label
                     x:Name="name_lbl"
                     Grid.Column="0"
@@ -31,15 +38,6 @@
                     Placeholder="הקלד שם משתמש"
                   
                      />
-
-                <Label
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Margin="15"
-                    HorizontalOptions="Center"
-                    
-                    TextColor="Purple" />
-
 
                 <Label
                     x:Name="email_lbl"
@@ -82,9 +80,11 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     Keyboard="Chat"
-                    Placeholder="כתוב עיר מגורים"
+                    Placeholder="הקלד עיר מגורים"
                     
                      />
+             
+   
                 <Label
                     Grid.Row="5"
                     Grid.ColumnSpan="2"

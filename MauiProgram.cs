@@ -18,6 +18,8 @@ namespace BSClient
                 });
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoginPageViewModel>();
+            builder.Services.AddSingleton<Register>();
+            builder.Services.AddSingleton<RegisterPageViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

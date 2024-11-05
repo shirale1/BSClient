@@ -5,12 +5,12 @@ namespace BSClient
 {
     public partial class App : Application
     {
-        public App(LoginPage loginPage)
+        public App(RegisterPageViewModel Register)
         {
             InitializeComponent();
 
             //MainPage = new AppShell();
-            MainPage = new NavigationPage(loginPage); 
+            MainPage = new Register(Register); 
         }
     }
 }
