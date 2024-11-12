@@ -17,91 +17,110 @@
             VerticalOptions="FillAndExpand"
             VerticalScrollBarVisibility="Always">
 
-            <Grid ColumnDefinitions="*,1.5*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*">
-                
-                <Label
-                      Grid.Row="2"
-                      Grid.ColumnSpan="2"
-                      Margin="15"
-                      HorizontalOptions="Center"
-                      TextColor="Purple" />
-                
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*" >
+
                 <Label
                     x:Name="name_lbl"
-                    Grid.Column="0"
+                    Grid.Column="1"
                     Margin="15"
                     Text="שם משתמש"
-                   />
+                    FontFamily="felix"/>
 
                 <Entry
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Placeholder="הקלד שם משתמש"
+                    Grid.Row="3"
+
                   
-                     />
+                />
 
                 <Label
-                    x:Name="email_lbl"
-                    Grid.Row="3"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="15"
+                    HorizontalOptions="Center"
+                    Text="{Binding User_Error}"
+                    TextColor="Red" />
+
+
+                <Label
+                     x:Name="email_lbl"
+                     Grid.Row="3"
+                    Grid.Column="1"
                     Margin="15"
                     Text="אימייל"
                     />
 
                 <Entry
                     Grid.Row="3"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Keyboard="Email"
                     Placeholder="הקלד אימייל"
-                   
-                     />
+                  
+                   />
+
+                <Label
+                       x:Name="city_lbl"
+                       Grid.Row="4"
+                    Grid.Column="1"
+                        Margin="15"
+                       Text="עיר מגורים"
+                    />
+
+                 <Entry
+                     Grid.Row="4"
+                     Grid.Column="0"
+                     Placeholder="הקלד עיר מגורים"
+                  
+                  />
 
                 <Label
                     x:Name="password_lbl"
-                    Grid.Row="4"
-                    Margin="15"
-                    FlowDirection="RightToLeft"
-                    Text="סיסמא"
-                     />
-                <Entry
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Keyboard="Chat"
-                    Placeholder="הקלד סיסמא"
-                    
-                     />
-
-                <Label
-                    x:Name="city_lbl"
-                    Grid.Row="4"
-                    Margin="15"
-                    FlowDirection="RightToLeft"
-                    Text="עיר מגורים"
-                     />
-                <Entry
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Keyboard="Chat"
-                    Placeholder="הקלד עיר מגורים"
-                    
-                     />
-             
-   
-                <Label
                     Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="15"
+                    Text="סיסמא"
+                 />
+                <Entry
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Placeholder="הקלד סיסמא"
+                    Text="{Binding Password}"
+                    
+               />
+                <Label
+                    Grid.Row="6"
+                    Margin="15"
+                    Text="בחר את סוג המשתמש:"
+                    />
+
+                    <StackLayout
+                    Grid.Row="7"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
-                    
-                    TextColor="Purple" />
+                    Orientation="Horizontal">
+                        <!--  RadioButton בייביסיטר  -->
+                        <RadioButton
+                        Content="בייביסיטר"
+                        GroupName="UserType"
+                        IsChecked="{Binding IsBabySiterChecked}" />
+
+                        <!--  RadioButton הורה  -->
+                        <RadioButton
+                        Content="הורה"
+                        GroupName="UserType"
+                        IsChecked="{Binding IsParentChecked}" />
+                    </StackLayout>
 
 
-                <Button
-                    Grid.Row="10"
+                    <Label
+                    Grid.Row="6"
                     Grid.ColumnSpan="2"
-                 
-                    
-                    Text="המשך" />
+                    HorizontalOptions="Center"
+                    Text="{Binding Password_Error}"
+                    TextColor="red" />
 
             </Grid>
-
         </ScrollView>
     </StackLayout>
 </ContentPage>

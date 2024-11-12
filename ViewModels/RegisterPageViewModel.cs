@@ -144,5 +144,39 @@ namespace BSClient.ViewModels;
                 OnPropertyChanged(nameof(User_Type));
             }
         }
-
+    public bool IsBabySiterChecked
+    {
+        get { return IsBabySiterChecked;  }
+        set
+        {
+            if (IsBabySiterChecked != value)
+            {
+                IsBabySiterChecked = value;
+                if (IsBabySiterChecked)
+                {
+                    User_Type = "1"; // עדכון ל-1 עבור בייביסיטר
+                    IsParentChecked = false; // Uncheck the Buyer radio button
+                }
+                OnPropertyChanged(nameof(IsBabySiterChecked));
+            }
+        }
     }
+    public bool IsParentChecked
+    {
+        get { return IsParentChecked; }
+        set
+        {
+            if (IsParentChecked != value)
+            {
+                IsParentChecked = value;
+                if (IsParentChecked)
+                {
+                    User_Type = "2"; // עדכון ל-2 עבור הורה
+                    IsBabySiterChecked = false; // Uncheck the Buyer radio button
+                }
+                OnPropertyChanged(nameof(IsParentChecked));
+            }
+        }
+    }
+
+}
