@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BSClient.Views.Register"
+             
              Title="Register">
     <StackLayout VerticalOptions="FillAndExpand">
 
@@ -21,21 +22,22 @@
 
                 <Label
                     x:Name="name_lbl"
+                    
                     Grid.Column="1"
                     Margin="15"
                     Text="שם משתמש"
-                    FontFamily="felix"/>
+                     Grid.Row="2"/>
 
                 <Entry
                     Grid.Column="0"
                     Placeholder="הקלד שם משתמש"
-                    Grid.Row="3"
-
+                    Grid.Row="2"
+                    Text="{Binding Name}"
                   
                 />
 
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.ColumnSpan="2"
                     Margin="15"
                     HorizontalOptions="Center"
@@ -45,30 +47,30 @@
 
                 <Label
                      x:Name="email_lbl"
-                     Grid.Row="3"
+                     Grid.Row="4"
                     Grid.Column="1"
                     Margin="15"
                     Text="אימייל"
                     />
 
                 <Entry
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="0"
                     Keyboard="Email"
                     Placeholder="הקלד אימייל"
-                  
+                    Text="{Binding Password}"
                    />
 
                 <Label
                        x:Name="city_lbl"
-                       Grid.Row="4"
+                       Grid.Row="5"
                     Grid.Column="1"
                         Margin="15"
                        Text="עיר מגורים"
                     />
 
                  <Entry
-                     Grid.Row="4"
+                     Grid.Row="5"
                      Grid.Column="0"
                      Placeholder="הקלד עיר מגורים"
                   
@@ -76,26 +78,34 @@
 
                 <Label
                     x:Name="password_lbl"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="1"
                     Margin="15"
                     Text="סיסמא"
                  />
                 <Entry
-                    Grid.Row="5"
-                    Grid.Column="0"
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Keyboard="Chat"
+                    Margin="15"
                     Placeholder="הקלד סיסמא"
-                    Text="{Binding Password}"
-                    
-               />
+                    Text="{Binding Password, Mode=TwoWay}" />
+
                 <Label
-                    Grid.Row="6"
+                    Grid.Row="8"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Center"
+                    Text="{Binding Password_Error, Mode=TwoWay}"
+                    TextColor="red" />
+
+                <Label
+                    Grid.Row="9"
                     Margin="15"
                     Text="בחר את סוג המשתמש:"
                     />
 
                     <StackLayout
-                    Grid.Row="7"
+                    Grid.Row="10"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Center"
                     Orientation="Horizontal">
@@ -112,13 +122,13 @@
                         IsChecked="{Binding IsParentChecked}" />
                     </StackLayout>
 
-
-                    <Label
-                    Grid.Row="6"
+                <Button
+                    Grid.Row="11"
                     Grid.ColumnSpan="2"
-                    HorizontalOptions="Center"
-                    Text="{Binding Password_Error}"
-                    TextColor="red" />
+                    Command="{Binding RegistrationCommand}"
+                    IsEnabled="{Binding CanRegister}"
+                    Text="המשך" />
+
 
             </Grid>
         </ScrollView>
