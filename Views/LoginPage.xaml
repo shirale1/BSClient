@@ -15,26 +15,26 @@
            />
 
         <Entry
-                Placeholder="הכנס שם"
-                PlaceholderColor="LightGrey"
+                Placeholder="enter UserName"
+                PlaceholderColor="Black"
            />
        
 
         <Entry
                 IsPassword="True"
-                Placeholder="הכנס סיסמה"
-                PlaceholderColor="LightGrey"
+                Placeholder="enter PassWord"
+                PlaceholderColor="Black"
           />
      
 
         <HorizontalStackLayout>
             <Button
                     Command="{Binding LoginCommand}"
-                    Text="התחבר"
+                    Text="Log me in"
                     WidthRequest="150"
               />
             <Button
-                    Text="ביטול"
+                    Text="Cancel"
                     WidthRequest="150" 
                />
           
@@ -42,11 +42,11 @@
         </HorizontalStackLayout>
 
         <StackLayout Margin="0,25,0,0" HorizontalOptions="Center">
-            <Label Text="אין לך משתמש?" />
+            <Label Text="dont have a user?" />
             <Label
                 FontAttributes="Bold"
             HorizontalOptions="Center"
-                Text="לחץ להרשמה"
+                Text="Click to register"
                 TextColor="Purple">
            
             </Label>

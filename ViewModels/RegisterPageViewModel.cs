@@ -39,7 +39,7 @@ public class RegisterPageViewModel : ViewModelBase
             {
                 if (char.IsDigit(Name[0]))
                 {
-                    User_Error = "!!שם המשתמש לא יכול להתחיל בספרה!!";
+                    User_Error = "Username cannot start with a number";
                     OnPropertyChanged(nameof(Name));
                 }
 
@@ -93,7 +93,7 @@ public class RegisterPageViewModel : ViewModelBase
                     bool IsPasswordOk = IsValidPassword(password);
                     if (!IsPasswordOk)
                     {
-                        Password_Error = "!!סיסמה חייבת להכיל לפחות אות גדולה אחת ומספר!!";
+                        Password_Error = "Password must contain at least one uppercase letter and a number";
                     }
                 }
             }
