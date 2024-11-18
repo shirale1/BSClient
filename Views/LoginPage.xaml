@@ -4,7 +4,7 @@
              x:Class="BSClient.Views.LoginPage"
              xmlns:viewmodel="clr-namespace:BSClient.ViewModels"
              x:DataType="viewmodel:LoginPageViewModel"
-             Title="LoginPage">
+            >
     
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Label
@@ -12,6 +12,7 @@
                 HorizontalOptions="Center"
                 Text="Login page"
                 TextColor="Purple"
+              
            />
 
         <Entry
@@ -45,10 +46,12 @@
             <Label Text="dont have a user?" />
             <Label
                 FontAttributes="Bold"
-            HorizontalOptions="Center"
+                HorizontalOptions="Center"
                 Text="Click to register"
                 TextColor="Purple">
-           
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
+                </Label.GestureRecognizers>
             </Label>
         </StackLayout>
 

@@ -1,11 +1,13 @@
+using Microsoft.Win32;
+using BSClient.Views;
 using System.Windows.Input;
 
 namespace BSClient.ViewModels;
 
 public class LoginPageViewModel : ContentPage
 {
-	
 
+    private IServiceProvider serviceProvider;
     public ICommand LoginCommand { get; set; }
     public ICommand GoToRegisterCommand { get; set; }
     private string email;
@@ -37,5 +39,15 @@ public class LoginPageViewModel : ContentPage
                 // can add error message property and set it here
             }
         }
+    }
+    public LoginPageViewModel(IServiceProvider serviceProvider)
+    {
+        this.serviceProvider = serviceProvider;
+        GoToRegisterCommand = new Command(GoToRegister);
+    }
+
+    public void GoToRegister()
+    {
+        ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<Register>());
     }
 }
