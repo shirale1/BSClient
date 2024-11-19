@@ -11,7 +11,7 @@
         Text="Register page"
         TextColor="Purple"
            
-       />
+    />
 
         <ScrollView
             HorizontalScrollBarVisibility="Always"

@@ -17,9 +17,22 @@ public class RegisterPageViewModel : ViewModelBase
 
     private readonly IServiceProvider serviceProvider;
 
-    // הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
 
-
+    //private BSClientWebAPIProxy proxy;
+    //public RegisterViewModel(TasksManagementWebAPIProxy proxy)
+    //{
+    //    this.proxy = proxy;
+    //    RegisterCommand = new Command(OnRegister);
+    //    CancelCommand = new Command(OnCancel);
+    //    ShowPasswordCommand = new Command(OnShowPassword);
+    //    UploadPhotoCommand = new Command(OnUploadPhoto);
+    //    PhotoURL = proxy.GetDefaultProfilePhotoUrl();
+    //    LocalPhotoPath = "";
+    //    IsPassword = true;
+    //    UserNameError = "Name is required";
+    //    EmailError = "Email is required";
+    //    PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+    //}
 
     public string Name
     {
@@ -191,43 +204,10 @@ public class RegisterPageViewModel : ViewModelBase
     //        Email = email,
     //        UserType = user_type,
     //        Password = password,
-    //    };
+    // };
 
 
-    //    // check
-    //    int? res = await this.api_service.Register(user);
-    //    // אם ההרשמה הצליחה
-    //    if (res != null)
-    //    {
-    //        // בדיקת סוג המשתמש
-    //        if (User_Type == "2") // אם המשתמש הוא הורה
-    //        {
-
-
-    //            var Pare = serviceProvider.GetRequiredService<SellerRegistrationPage>();
-    //            var sellerRegistrationViewModel = serviceProvider.GetRequiredService<SellerRegistrationPageViewModel>();
-
-    //            // אתחול ה-ViewModel עם ה-SellerId שנוצר
-    //            sellerRegistrationViewModel.Initialize((int)res);
-
-    //            // הגדרת ה-ViewModel כ-BindingContext של הדף
-    //            sellerRegistrationPage.BindingContext = sellerRegistrationViewModel;
-    //            await App.Current.MainPage.Navigation.PushAsync(sellerRegistrationPage);
-
-    //        }
-    //        else if (User_Type == "3") // אם המשתמש הוא קונה
-    //        {
-    //            // מעבר לדף BusinessesPage
-    //            var BusinessesPage = serviceProvider.GetRequiredService<BusinessesPage>();
-    //            await App.Current.MainPage.Navigation.PushAsync(BusinessesPage);
-    //        }
-    //    }
-    //    else
-    //    {
-    //        // טיפול במקרה שההרשמה נכשלה (הודעת שגיאה למשתמש, למשל)
-    //        await Application.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה, נסה שוב.", "אישור");
-    //    }
-    //}
+   
 }
 
     
