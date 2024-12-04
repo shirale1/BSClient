@@ -189,7 +189,28 @@ public class RegisterPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
-
+    public bool HasLicense
+    {
+        get { return hasLicense; }
+        set
+        {
+            DoesntHaveLicense = false;
+            hasLicense = value;
+            OnPropertyChanged(nameof(HasLicense));
+        }
+    }
+    public bool DoesntHaveLicense
+    {
+        get => doesntHaveLicense;
+        set
+        {
+            doesntHaveLicense = value;
+            HasLicense = false;
+            OnPropertyChanged(nameof(DoesntHaveLicense));
+        }
+    }
+    private bool hasLicense;
+    private bool doesntHaveLicense;
     public ICommand RegisterCommand
     {
         get; private set;

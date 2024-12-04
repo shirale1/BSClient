@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BSClient.Models
 {
-    public class AppUser
+    public class Users
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace BSClient.Models
 
         public string Password { get; set; } = null!;
 
-        public string City { get; set; } = null!;
+        public string Address { get; set; } = null!;
 
         public string UserType { get; set; } = null!;
 

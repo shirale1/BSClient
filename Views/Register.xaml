@@ -113,12 +113,13 @@
                     Grid.Row="12"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    Orientation="Horizontal">
+                    Orientation="Horizontal" RadioButtonGroup.GroupName="UserType">
                         <!--  RadioButton בייביסיטר  -->
                         <RadioButton
                         Content="babysitter"
                         GroupName="UserType"
-                        IsChecked="{Binding IsBabySiterChecked}" />
+                        IsChecked="{Binding IsBabySiterChecked}"
+                         />
 
                         <!--  RadioButton הורה  -->
                         <RadioButton
@@ -127,6 +128,66 @@
                         IsChecked="{Binding IsParentChecked}" />
                     </StackLayout>
 
+                <StackLayout /> <!--אנטריז נוספים לבייביסיטר-->
+                <Label
+                      x:Name="age_lbl"
+                     Grid.Column="0"
+                     Margin="15"
+                     Text="age"
+                     Grid.Row="13"
+                />
+
+                <Slider  Grid.Column="0"
+                    Minimum="12"
+                    Maximum="120"
+                    BackgroundColor="Grey"
+                     Grid.Row="14"
+                    Value="{Binding Age}">
+                    
+                </Slider>
+
+                <Label
+                     x:Name="experience_lbl"
+                     Grid.Column="0"
+                     Margin="15"
+                     Text="enter your experience years"
+                     Grid.Row="15" />
+
+                <Slider  Grid.Column="0"
+                     Minimum="0"
+                     Maximum="99"
+                     BackgroundColor="Grey"
+                     Grid.Row="16"
+                     Value="{Binding Experience}">
+
+                </Slider>
+                
+                <Label
+                    x:Name="license_lbl"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="do you have license?"
+                    Grid.Row="17" />
+
+                <StackLayout
+                    Grid.Row="18"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Start"
+                    Orientation="Horizontal" RadioButtonGroup.GroupName="Havelicense" >
+                    
+                    <RadioButton
+                        Content="Yes"
+                        GroupName="HaveLicence"
+                        IsChecked="{Binding HasLicense}"/>
+
+                   
+                    <RadioButton
+                        Content="No"
+                        GroupName="HaveLicence"
+                        IsChecked="{Binding DoesntHaveLicense}"/>
+                </StackLayout>
+                <StackLayout/>
+                 
                 <Button
                     Grid.Row="13"
                     Grid.ColumnSpan="2"

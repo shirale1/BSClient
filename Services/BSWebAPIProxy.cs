@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BSClient.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,16 +27,8 @@ namespace BSClient.Services
             this.baseUrl = BaseAddress;
         }
 
-        //public string GetImagesBaseAddress()
-        //{
-        //    return BSWebAPIProxy.ImageBaseAddress;
-        //}
 
-        //public string GetDefaultProfilePhotoUrl()
-        //{
-        //    return $"{BSWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
-        //}
-        public async Task<AppUser?> LoginAsync(LoginInfo userInfo)
+        public async Task<Users?> LoginAsync(LoginInfo userInfo)
         {
             //Set URI to the specific function API
             string url = $"{this.baseUrl}login";
@@ -55,7 +48,47 @@ namespace BSClient.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    AppUser? result = JsonSerializer.Deserialize<AppUser>(resContent, options);
+                    Babysiter? bResult = JsonSerializer.Deserialize<Babysiter>(resContent, options);
+                    if (bResult == null || bResult.Age == null)
+                    {
+                        Parent? pResult = JsonSerializer.Deserialize<Parent>(resContent, options);
+                        return pResult;
+                    }
+                    else
+                        return bResult;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<Babysiter?> RegisterBabysiter(Babysiter b)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}registerBabysiter";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(b);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Babysiter? result = JsonSerializer.Deserialize<Babysiter>(resContent, options);
                     return result;
                 }
                 else
@@ -63,7 +96,43 @@ namespace BSClient.Services
                     return null;
                 }
             }
-
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<Parent?> RegisterBabysiter(Parent p)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}registerParent";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(p);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Parent? result = JsonSerializer.Deserialize<Parent>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
