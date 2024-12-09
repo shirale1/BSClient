@@ -14,6 +14,11 @@ public class RegisterPageViewModel : ViewModelBase
     private string user_type;
     private bool isBabySiterChecked;
     private bool isParentChecked;
+    private bool haveLicense;
+    private bool doesntHaveLicense;
+    private bool age;
+    private int experience;
+
 
     private readonly IServiceProvider serviceProvider;
 
@@ -189,28 +194,40 @@ public class RegisterPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
-    public bool HasLicense
+    public bool HaveLicense
     {
-        get { return hasLicense; }
+        get { return haveLicense; }
         set
         {
-            DoesntHaveLicense = false;
-            hasLicense = value;
-            OnPropertyChanged(nameof(HasLicense));
+            DoesntHaveLicense = true;
+            haveLicense = value;
+            OnPropertyChanged(nameof(HaveLicense));
         }
     }
     public bool DoesntHaveLicense
     {
-        get => doesntHaveLicense;
+        get { return DoesntHaveLicense; }
         set
         {
-            doesntHaveLicense = value;
-            HasLicense = false;
+            DoesntHaveLicense = value;
+            HaveLicense = false;
             OnPropertyChanged(nameof(DoesntHaveLicense));
         }
     }
-    private bool hasLicense;
-    private bool doesntHaveLicense;
+    public int Age
+    {
+        get { return Age; }
+        set
+        {
+            Age= value;
+            OnPropertyChanged(nameof(Age));
+        }
+    }
+    public int Experience
+    {
+        get
+    }
+
     public ICommand RegisterCommand
     {
         get; private set;

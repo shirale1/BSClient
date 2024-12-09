@@ -128,7 +128,7 @@
                         IsChecked="{Binding IsParentChecked}" />
                     </StackLayout>
 
-                <StackLayout /> <!--אנטריז נוספים לבייביסיטר-->
+                <StackLayout IsVisible="{Binding IsBabySiterChecked}"> <!--אנטריז נוספים לבייביסיטר-->
                 <Label
                       x:Name="age_lbl"
                      Grid.Column="0"
@@ -178,7 +178,7 @@
                     <RadioButton
                         Content="Yes"
                         GroupName="HaveLicence"
-                        IsChecked="{Binding HasLicense}"/>
+                        IsChecked="{Binding HaveLicense}"/>
 
                    
                     <RadioButton
@@ -186,7 +186,47 @@
                         GroupName="HaveLicence"
                         IsChecked="{Binding DoesntHaveLicense}"/>
                 </StackLayout>
-                <StackLayout/>
+                    
+                    </StackLayout>
+                
+                
+                <StackLayout IsVisible="{Binding IsParentChecked}">
+                        <!--אנטריז נוספים להורה-->
+                     <Label
+                      x:Name="kidsN_lbl"
+                      Grid.Column="0"
+                      Margin="15"
+                      Text="kids"
+                      Grid.Row="19"
+                     />
+
+                <Label
+                    Grid.Row="20"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Start"
+                    Text="{Binding KidsN, Mode=TwoWay}"
+                    />
+
+                    <Label
+                    x:Name="pets_lbl"
+                    Grid.Column="0"
+                    Margin="15"
+                    Text="do you have pets?"
+                    Grid.Row="21" 
+
+                    <RadioButton
+                    Content="Yes"
+                    GroupName="pets"
+                    IsChecked="{Binding HavePets}"/>
+
+
+                    <RadioButton
+                   Content="No"
+                   GroupName="pets"
+                   IsChecked="{Binding DoesntHavePets}"/>
+
+                    </Label>
+                </StackLayout>
                  
                 <Button
                     Grid.Row="13"
@@ -194,7 +234,7 @@
                     Command="{Binding RegistrationCommand}"
                     IsEnabled="{Binding CanRegister}"
                     Text="Send" />
-
+/>
 
             </Grid>
         </ScrollView>
