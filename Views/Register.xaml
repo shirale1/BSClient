@@ -200,19 +200,22 @@
                       Grid.Row="19"
                      />
 
-                <Label
-                    Grid.Row="20"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Start"
-                    Text="{Binding KidsN, Mode=TwoWay}"
-                    />
+                    <Slider  Grid.Column="0"
+                     Minimum="1"
+                     Maximum="20"
+                     BackgroundColor="Grey"
+                     Grid.Row="20"
+                     Value="{Binding KidsN}">
+
+                    </Slider>
 
                     <Label
-                    x:Name="pets_lbl"
+                        x:Name="pets_lbl"
                     Grid.Column="0"
                     Margin="15"
                     Text="do you have pets?"
-                    Grid.Row="21" 
+                    Grid.Row="21"
+                    />
 
                     <RadioButton
                     Content="Yes"
@@ -225,7 +228,7 @@
                    GroupName="pets"
                    IsChecked="{Binding DoesntHavePets}"/>
 
-                    </Label>
+                 
                 </StackLayout>
                  
                 <Button
@@ -234,7 +237,7 @@
                     Command="{Binding RegistrationCommand}"
                     IsEnabled="{Binding CanRegister}"
                     Text="Send" />
-/>
+
 
             </Grid>
         </ScrollView>

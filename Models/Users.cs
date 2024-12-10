@@ -24,6 +24,6 @@ namespace BSClient.Models
 
         //public virtual List<UserTask> UserTasks { get; set; } = new List<UserTask>();
 
-        public AppUser() { }
+        public Users() { }
     }
 }

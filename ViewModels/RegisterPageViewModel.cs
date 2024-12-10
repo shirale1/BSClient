@@ -1,5 +1,6 @@
 using System.Windows.Input;
 
+
 namespace BSClient.ViewModels;
 
 public class RegisterPageViewModel : ViewModelBase
@@ -16,12 +17,14 @@ public class RegisterPageViewModel : ViewModelBase
     private bool isParentChecked;
     private bool haveLicense;
     private bool doesntHaveLicense;
-    private bool age;
+    private int age;
     private int experience;
-
+    private int kidsN;
+    private bool havePets;
+    private bool doesntHavePets;
 
     private readonly IServiceProvider serviceProvider;
-
+    public Command RegistrationCommand {get;}
 
     //private BSClientWebAPIProxy proxy;
     //public RegisterViewModel(TasksManagementWebAPIProxy proxy)
@@ -194,44 +197,78 @@ public class RegisterPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
+    
+    public int Age
+    {
+        get { return age; }
+        set
+        {
+            age = value;
+            OnPropertyChanged();
+        }
+    }
+    public int Experience
+    {
+        get { return experience; }
+        set
+        {
+            experience= value;
+            OnPropertyChanged();
+        }
+    }
     public bool HaveLicense
     {
         get { return haveLicense; }
         set
         {
-            DoesntHaveLicense = true;
+            doesntHaveLicense = true;
             haveLicense = value;
-            OnPropertyChanged(nameof(HaveLicense));
+            OnPropertyChanged();
         }
     }
     public bool DoesntHaveLicense
     {
-        get { return DoesntHaveLicense; }
+        get { return doesntHaveLicense; }
         set
         {
-            DoesntHaveLicense = value;
-            HaveLicense = false;
-            OnPropertyChanged(nameof(DoesntHaveLicense));
+            doesntHaveLicense = value;
+            haveLicense = false;
+            OnPropertyChanged();
         }
     }
-    public int Age
+    public int KidsN
     {
-        get { return Age; }
+        get { return kidsN; }
         set
         {
-            Age= value;
-            OnPropertyChanged(nameof(Age));
+            kidsN= value;
+            OnPropertyChanged();
         }
     }
-    public int Experience
+    public bool HavePets
     {
-        get
+        get { return havePets; }
+        set
+        {
+            havePets = value;
+            OnPropertyChanged();
+        }
+    }
+    public bool DoesntHavePets
+    {
+        get { return doesntHavePets; }
+        set
+        {
+            doesntHavePets = value;
+            OnPropertyChanged();
+        }
     }
 
     public ICommand RegisterCommand
     {
         get; private set;
     }
+
 
     //public async void Register()
     //{

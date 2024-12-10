@@ -20,12 +20,12 @@
 
             <Grid ColumnDefinitions="*" RowDefinitions="*" >
 
-
+                <!--שכל כפתור יקשר לעמוד המתאים-->
                 <Button
-                  <!--שכל כפתור יקשר לעמוד המתאים-->
                     Text="Log in"
                     WidthRequest="150"
-                     Grid.Row="1"/>
+                     Grid.Row="1"
+                    />
                      
 
                     <Button
