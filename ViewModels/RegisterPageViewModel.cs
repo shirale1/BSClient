@@ -1,3 +1,4 @@
+using BSClient.Services;
 using System.Windows.Input;
 
 
@@ -6,157 +7,210 @@ namespace BSClient.ViewModels;
 public class RegisterPageViewModel : ViewModelBase
 {
 
-    private string name;
-    private int? userId { get; set; }
-    private string? user_error;
-    private string email;
-    private string password;
-    private string? password_error;
+    private readonly IServiceProvider serviceProvider;
+    public Command RegisterCommand { get; }
+
+    private BSWebAPIProxy proxy;
+    public RegisterPageViewModel(BSWebAPIProxy proxy)
+    {
+        this.proxy = proxy;
+        RegisterCommand = new Command(OnRegister);
+        ShowPasswordCommand = new Command(OnShowPassword);
+        IsPassword = true;
+        BirthDate = DateTime.Now.AddYears(-17);
+        UserNameError = "UserName is required";
+        EmailError = "Email is required";
+        PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+
+    }
     private string user_type;
     private bool isBabySiterChecked;
     private bool isParentChecked;
     private bool haveLicense;
     private bool doesntHaveLicense;
-    private int age;
+    private DateTime birthDate;
     private int experience;
     private int kidsN;
     private bool havePets;
     private bool doesntHavePets;
 
-    private readonly IServiceProvider serviceProvider;
-    public Command RegistrationCommand {get;}
 
-    //private BSClientWebAPIProxy proxy;
-    //public RegisterViewModel(TasksManagementWebAPIProxy proxy)
-    //{
-    //    this.proxy = proxy;
-    //    RegisterCommand = new Command(OnRegister);
-    //    CancelCommand = new Command(OnCancel);
-    //    ShowPasswordCommand = new Command(OnShowPassword);
-    //    UploadPhotoCommand = new Command(OnUploadPhoto);
-    //    PhotoURL = proxy.GetDefaultProfilePhotoUrl();
-    //    LocalPhotoPath = "";
-    //    IsPassword = true;
-    //    UserNameError = "Name is required";
-    //    EmailError = "Email is required";
-    //    PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
-    //}
+    //Defiine properties for each field in the registration form including error messages and validation logic
+    #region UserName
+    private bool showUserNameError;
 
-    public string Name
+    public bool ShowUserNameError
     {
-        get
-        {
-            return name;
-        }
+        get => showUserNameError;
         set
         {
-            name = value;
-            User_Error = ""; // איפוס שגיאת שם המשתמש
-            OnPropertyChanged(nameof(Name));
-            // בדיקת תקינות שם המשתמש
-
-            if (!string.IsNullOrEmpty(Name))
-
-            {
-                if (char.IsDigit(Name[0]))
-                {
-                    User_Error = "Username cannot start with a number";
-                    OnPropertyChanged(nameof(Name));
-                }
-
-            }
+            showUserNameError = value;
+            OnPropertyChanged("ShowUserNameError");
         }
     }
 
-    public string User_Error
+    private string userName;
+
+    public string UserName
     {
-        get
-        {
-            return user_error;
-        }
+        get => userName;
         set
         {
-            user_error = value;
-            OnPropertyChanged(nameof(User_Error));
+            userName = value;
+            ValidateName();
+            OnPropertyChanged("UserName");
         }
     }
+
+    private string userNameError;
+    public string UserNameError
+    {
+        get => userNameError;
+        set
+        {
+            userNameError = value;
+            OnPropertyChanged("UserNameError");
+        }
+    }
+
+    private void ValidateName()
+    {
+        this.ShowUserNameError = string.IsNullOrEmpty(UserName);
+    }
+    #endregion
+    #region Email
+    private bool showEmailError;
+
+    public bool ShowEmailError
+    {
+        get => showEmailError;
+        set
+        {
+            showEmailError = value;
+            OnPropertyChanged("ShowEmailError");
+        }
+    }
+
+    private string email;
 
     public string Email
     {
-        get
-        {
-            return email;
-        }
+        get => email;
         set
         {
             email = value;
-            OnPropertyChanged(nameof(Email));
+            ValidateEmail();
+            OnPropertyChanged("Email");
         }
     }
 
-    public string? Password
+    private string emailError;
+
+    public string EmailError
     {
-        get { return password; }
+        get => emailError;
         set
         {
-            password = value;
-            Password_Error = "";
-            OnPropertyChanged(nameof(Password));
-            OnPropertyChanged(nameof(User_Error));
-            if (string.IsNullOrEmpty(password))
+            emailError = value;
+            OnPropertyChanged("EmailError");
+        }
+    }
+
+    private void ValidateEmail()
+    {
+        this.ShowEmailError = string.IsNullOrEmpty(Email);
+        if (!ShowEmailError)
+        {
+            //check if email is in the correct format using regular expression
+            if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
             {
-                Password_Error = ""; // איפוס השגיאה אם השדה ריק
+                EmailError = "Email is not valid";
+                ShowEmailError = true;
             }
             else
             {
-                if (password != null)
-                {
-                    bool IsPasswordOk = IsValidPassword(password);
-                    if (!IsPasswordOk)
-                    {
-                        Password_Error = "Password must contain at least one uppercase letter and a number";
-                    }
-                }
+                EmailError = "";
+                ShowEmailError = false;
             }
         }
-    }
-
-    private bool IsValidPassword(string password)
-    {
-        bool hasUpperCase = false;
-        bool hasDigit = false;
-
-        foreach (char c in password)
+        else
         {
-            if (char.IsUpper(c))
-            {
-                hasUpperCase = true;
-            }
-            if (char.IsDigit(c))
-            {
-                hasDigit = true;
-            }
-
-            if (hasUpperCase && hasDigit)
-            {
-                break; // אם מצאנו כבר גם אות גדולה וגם ספרה, אפשר לעצור את הלולאה
-            }
+            EmailError = "Email is required";
         }
-        return hasUpperCase && hasDigit;
-
     }
+    #endregion
+    #region Password
+    private bool showPasswordError;
 
-    public string Password_Error
+    public bool ShowPasswordError
     {
-        get { return password_error; }
+        get => showPasswordError;
         set
         {
-            password_error = value;
-            OnPropertyChanged(nameof(Password_Error));
-            //OnPropertyChanged(nameof(CanRegister));
+            showPasswordError = value;
+            OnPropertyChanged("ShowPasswordError");
         }
     }
 
+    private string password;
+
+    public string Password
+    {
+        get => password;
+        set
+        {
+            password = value;
+            ValidatePassword();
+            OnPropertyChanged("Password");
+        }
+    }
+
+    private string passwordError;
+
+    public string PasswordError
+    {
+        get => passwordError;
+        set
+        {
+            passwordError = value;
+            OnPropertyChanged("PasswordError");
+        }
+    }
+
+    private void ValidatePassword()
+    {
+        //Password must include characters and numbers and be longer than 4 characters
+        if (string.IsNullOrEmpty(password) ||
+            password.Length < 4 ||
+            !password.Any(char.IsDigit) ||
+            !password.Any(char.IsLetter))
+        {
+            this.ShowPasswordError = true;
+        }
+        else
+            this.ShowPasswordError = false;
+    }
+
+    //This property will indicate if the password entry is a password
+    private bool isPassword = true;
+    public bool IsPassword
+    {
+        get => isPassword;
+        set
+        {
+            isPassword = value;
+            OnPropertyChanged("IsPassword");
+        }
+    }
+    //This command will trigger on pressing the password eye icon
+    public Command ShowPasswordCommand { get; }
+    //This method will be called when the password eye icon is pressed
+    public void OnShowPassword()
+    {
+        //Toggle the password visibility
+        IsPassword = !IsPassword;
+    }
+    #endregion
     public string User_Type
     {
         get
@@ -197,22 +251,28 @@ public class RegisterPageViewModel : ViewModelBase
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
-    
-    public int Age
+
+    public DateTime BirthDate
     {
-        get { return age; }
+        get { return birthDate; }
         set
         {
-            age = value;
+            birthDate = value;
             OnPropertyChanged();
         }
     }
+    public DateTime MaxDate
+    {
+        get { return DateTime.Now.AddYears(-15); }
+    }
+
+
     public int Experience
     {
         get { return experience; }
         set
         {
-            experience= value;
+            experience = value;
             OnPropertyChanged();
         }
     }
@@ -241,7 +301,7 @@ public class RegisterPageViewModel : ViewModelBase
         get { return kidsN; }
         set
         {
-            kidsN= value;
+            kidsN = value;
             OnPropertyChanged();
         }
     }
@@ -264,25 +324,16 @@ public class RegisterPageViewModel : ViewModelBase
         }
     }
 
-    public ICommand RegisterCommand
+
+
+
+    public async void OnRegister()
     {
-        get; private set;
+
+
+
     }
-
-
-    //public async void Register()
-    //{
-    //    Models.User user = new Models.User
-    //    {
-
-    //        FullName = name,
-    //        Email = email,
-    //        UserType = user_type,
-    //        Password = password,
-    // };
-
-
-   
 }
+
 
     

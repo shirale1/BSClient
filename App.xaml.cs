@@ -6,7 +6,7 @@ namespace BSClient
 {
     public partial class App : Application
     {
-        Users? LoggedInUser { get; set; }
+        public Users? LoggedInUser { get; set; }
         public App(IServiceProvider serviceProvider)
         {
             LoggedInUser = null;

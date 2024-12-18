@@ -76,7 +76,7 @@ namespace BSClient.ViewModels
             ErrorMsg = "";
             //Call the server to login
             LoginInfo loginInfo = new LoginInfo { Email = Email, Password = Password };
-            AppUser? u = await this.proxy.LoginAsync(loginInfo);
+            Users? u = await this.proxy.LoginAsync(loginInfo);
 
             InServerCall = false;
 
@@ -91,17 +91,15 @@ namespace BSClient.ViewModels
                 ErrorMsg = "";
                 //Navigate to the main page
                 AppShell shell = serviceProvider.GetService<AppShell>();
-                TaskViewModel tasksViewModel = serviceProvider.GetService<TasksViewModel>();
-                tasksViewModel.Refresh(); //Refresh data and user in the tasksview model as it is a singleton
                 ((App)Application.Current).MainPage = shell;
-                Shell.Current.FlyoutIsPresented = false; //close the flyout
-                Shell.Current.GoToAsync("Tasks"); //Navigate to the Tasks tab page
+                
+                
             }
         }
         private void OnRegister()
         {
             ErrorMsg = "";
-            UserName = "";
+            Email = "";
             Password = "";
             // Navigate to the Register View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<Register>());

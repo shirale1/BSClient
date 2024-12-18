@@ -22,6 +22,7 @@ namespace BSClient
             builder.Services.AddTransient<Register>();
             builder.Services.AddTransient<RegisterPageViewModel>();
             builder.Services.AddSingleton<BSWebAPIProxy>();
+            builder.Services.AddTransient<AppShell>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

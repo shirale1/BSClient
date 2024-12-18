@@ -11,11 +11,11 @@ namespace BSClient.Models
         public Babysiter() { }
 
        
-        public int? Age { get; set; }
+        public int Age { get; set; }
 
-        public int? ExperienceY { get; set; }
+        public int ExperienceY { get; set; }
 
-        public bool? License { get; set; }
+        public bool License { get; set; }
 
     }
 }

@@ -16,8 +16,9 @@
            />
 
         <Entry
-                Placeholder="enter UserName"
+                Placeholder="Email"
                 PlaceholderColor="Black"
+                Text="{Binding Email}"
            />
        
 
@@ -25,8 +26,9 @@
                 IsPassword="True"
                 Placeholder="enter PassWord"
                 PlaceholderColor="Black"
+                Text="{Binding Password}"
           />
-     
+        <Label Text="{Binding ErrorMsg}" Style="{StaticResource labelErrorStyle}"/>
 
         <HorizontalStackLayout>
             <Button
@@ -50,7 +52,7 @@
                 Text="Click to register"
                 TextColor="Purple">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding GoToRegisterCommand}"/>
+                    <TapGestureRecognizer Command="{Binding RegisterCommand}"/>
                 </Label.GestureRecognizers>
             </Label>
         </StackLayout>

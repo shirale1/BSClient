@@ -20,10 +20,6 @@ namespace BSClient.Models
 
         public string UserType { get; set; } = null!;
 
-        public bool IsManager { get; set; }
-
-        //public virtual List<UserTask> UserTasks { get; set; } = new List<UserTask>();
-
         public Users() { }
     }
 }
