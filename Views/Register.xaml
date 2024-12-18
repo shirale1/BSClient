@@ -74,10 +74,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Text="city" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                    <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    <Label Text="Address" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                    <Label Text="{Binding AddressError}" IsVisible="{Binding ShowAddressError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                 </Grid>
-                <Entry Placeholder="Type City" Text="{Binding City}" Style="{StaticResource entryStyle}" />   
+                <Entry Placeholder="Type Address" Text="{Binding Address}" Style="{StaticResource entryStyle}" />   
            
 
 
@@ -111,37 +111,38 @@
                         
                 
                     </StackLayout>
-                
-                
+
+                </StackLayout>
                 <StackLayout IsVisible="{Binding IsParentChecked}">
                         <!--אנטריז נוספים להורה-->
-                    <!-- kids -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="kids" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                        <Label Text="{Binding KidsError}" IsVisible="{Binding ShowKidsError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
-                    </Grid>
-                    <Entry Placeholder="how many kids do you have?" Keyboard="Numeric" Text="{Binding Kids}" Style="{StaticResource entryStyle}" />
+                        <!-- kids -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="kids" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
+                            <Label Text="{Binding KidsError}" IsVisible="{Binding ShowKidsError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                        </Grid>
+                        <Entry Placeholder="how many kids do you have?" Keyboard="Numeric" Text="{Binding Kids}" Style="{StaticResource entryStyle}" />
 
-                    <!--pets-->
+                        <!--pets-->
                         <StackLayout RadioButtonGroup.GroupName="Pets" RadioButtonGroup.SelectedValue="{Binding Pets}" Margin="20">
-                           
+
                             <RadioButton Content="yes" Value="true"/>
                             <RadioButton Content="no" Value="false" IsChecked="True"/>
                         </StackLayout>
-                        <StackLayout/>
-                    
-                        <Button
-                    Grid.Row="13"
-                    Grid.ColumnSpan="2"
-                    Command="{Binding RegisterCommand}"
-                    IsEnabled="{Binding CanRegister}"
-                    Text="Send" />
 
+
+                        
+                    
+                </StackLayout>
+                <Button
+
+Command="{Binding RegisterCommand}"
+IsEnabled="{Binding CanRegister}"
+Text="Send" />
             </VerticalStackLayout>
-           <StackLayout/>
         </ScrollView>
+    </StackLayout>
     </ContentPage>

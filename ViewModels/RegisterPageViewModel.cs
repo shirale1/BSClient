@@ -1,7 +1,5 @@
-using Android.Locations;
 using BSClient.Services;
 using System.Windows.Input;
-using static Java.Util.Jar.Attributes;
 using BSClient.Models;
 
 
@@ -24,6 +22,7 @@ public class RegisterPageViewModel : ViewModelBase
         UserNameError = "UserName is required";
         EmailError = "Email is required";
         PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+        UserType = "1";
 
     }
     
@@ -223,6 +222,17 @@ public class RegisterPageViewModel : ViewModelBase
         set
         {
             userType = value;
+            if (value == "1")
+            {
+                IsBabySiterChecked = true;
+                IsParentChecked = false;
+            }
+            else
+            {
+                IsBabySiterChecked = false;
+                IsParentChecked = true;
+            }
+                
             OnPropertyChanged(nameof(UserType));
         }
     }
@@ -233,11 +243,7 @@ public class RegisterPageViewModel : ViewModelBase
         set
         {
             isBabySiterChecked = value;
-            if (IsBabySiterChecked)
-            {
-                UserType = "1"; // עדכון ל-1 עבור בייביסיטר
-                IsParentChecked = false; // Uncheck the Buyer radio button
-            }
+            
             OnPropertyChanged(nameof(IsBabySiterChecked));
         }
     }
@@ -247,11 +253,7 @@ public class RegisterPageViewModel : ViewModelBase
         set
         {
             isParentChecked = value;
-            if (IsParentChecked)
-            {
-                UserType = "2"; // עדכון ל-2 עבור הורה
-                IsBabySiterChecked = false; // Uncheck the Buyer radio button
-            }
+            
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
@@ -263,7 +265,6 @@ public class RegisterPageViewModel : ViewModelBase
         set
         {
             birthDate = value;
-            ValidateName();
             OnPropertyChanged("BirthDate");
         }
     }
@@ -310,7 +311,7 @@ public class RegisterPageViewModel : ViewModelBase
     }
     private void ValidateExperience()
     {
-        this.ShowExperienceError = Experience == 0;
+        //this.ShowExperienceError = Experience == 0;
     }
     #endregion experience
     #region license
@@ -364,7 +365,7 @@ public class RegisterPageViewModel : ViewModelBase
     
     private void ValidateKids()
     {
-        this.ShowKidsError = Kids == 0;
+        //this.ShowKidsError = Kids == 0;
     }
     #endregion kids
     #region pets
@@ -423,53 +424,67 @@ public class RegisterPageViewModel : ViewModelBase
         ValidateEmail();
         ValidatePassword();
 
-        if (!ShowUserNameError  && !ShowEmailError && !ShowPasswordError)
+        if (!ShowUserNameError  && !ShowEmailError && !ShowPasswordError && !showAddressError&& !showKidsError )
         {
-            //Create a new AppUser object with the data from the registration form
-            var newUser = new Users()
-            {
-                UserName = UserName,
-                Email = Email,
-                Password = Password,
-                Address= Address,
-                UserType = UserType,
-            };
 
-            //Call the Register method on the proxy to register the new user
-            InServerCall = true;
-            if(userType=="1")
-            newUser = await proxy.RegisterBabysiter((Babysiter)newUser);
-            else
+            if (IsParentChecked)
             {
-                newUser = await proxy.RegisterParent((Parent)newUser);
-            }
-            InServerCall = false;
-
-            //If the registration was successful, navigate to the login page
-            if (newUser != null)
-            {
-                //UPload profile imae if needed
-                //if (!string.IsNullOrEmpty(LocalPhotoPath))
-                //{
-                //    await proxy.LoginAsync(new LoginInfo { Email = newUser.UserEmail, Password = newUser.UserPassword });
-                //    AppUser? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
-                //    if (updatedUser == null)
-                //    {
-                //        InServerCall = false;
-                //        await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
-                //    }
-                //}
+                Parent? p = new Parent()
+                {
+                    UserName = UserName,
+                    Email = Email,
+                    Password = Password,
+                    Address = Address,
+                    UserType = UserType,
+                    KidsN = Kids,
+                    Pets = Pets
+                };
+                InServerCall = true;
+                p = await proxy.RegisterParent(p);
                 InServerCall = false;
+                if (p != null)
+                {
+                   ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                }
+                else
+                {
 
-                ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                    //If the registration failed, display an error message
+                    string errorMsg = "Registration failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+                }
             }
             else
             {
+                Babysiter? b = new Babysiter()
+                {
+                    UserName = UserName,
+                    Email = Email,
+                    Password = Password,
+                    Address = Address,
+                    UserType = UserType,
+                    License = HaveLicense,
+                    ExperienceY = Experience,
+                    BirthDate = DateOnly.FromDateTime(BirthDate)
+                };
+                InServerCall = true;
+                b = await proxy.RegisterBabysiter(b);
+                InServerCall = false;
+                if (b != null)
+                {
+                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                }
+                else
+                {
 
-                //If the registration failed, display an error message
-                string errorMsg = "Registration failed. Please try again.";
-                await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+                    //If the registration failed, display an error message
+                    string errorMsg = "Registration failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+                }
             }
+
+            
+            
         }
 
     }

@@ -11,7 +11,7 @@ namespace BSClient.Models
         public Babysiter() { }
 
        
-        public int Age { get; set; }
+        public DateOnly BirthDate { get; set; }
 
         public int ExperienceY { get; set; }
 

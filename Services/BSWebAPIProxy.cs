@@ -49,7 +49,7 @@ namespace BSClient.Services
                         PropertyNameCaseInsensitive = true
                     };
                     Babysiter? bResult = JsonSerializer.Deserialize<Babysiter>(resContent, options);
-                    if (bResult == null || bResult.Age == null)
+                    if (bResult == null)
                     {
                         Parent? pResult = JsonSerializer.Deserialize<Parent>(resContent, options);
                         return pResult;
