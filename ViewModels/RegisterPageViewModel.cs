@@ -1,5 +1,8 @@
+using Android.Locations;
 using BSClient.Services;
 using System.Windows.Input;
+using static Java.Util.Jar.Attributes;
+using BSClient.Models;
 
 
 namespace BSClient.ViewModels;
@@ -23,16 +26,13 @@ public class RegisterPageViewModel : ViewModelBase
         PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
 
     }
-    private string user_type;
+    
+
     private bool isBabySiterChecked;
     private bool isParentChecked;
-    private bool haveLicense;
-    private bool doesntHaveLicense;
-    private DateTime birthDate;
-    private int experience;
     private int kidsN;
     private bool havePets;
-    private bool doesntHavePets;
+    private DateTime birthDate;
 
 
     //Defiine properties for each field in the registration form including error messages and validation logic
@@ -57,7 +57,7 @@ public class RegisterPageViewModel : ViewModelBase
         set
         {
             userName = value;
-            ValidateName();
+            ValidateUserName();
             OnPropertyChanged("UserName");
         }
     }
@@ -73,7 +73,7 @@ public class RegisterPageViewModel : ViewModelBase
         }
     }
 
-    private void ValidateName()
+    private void ValidateUserName()
     {
         this.ShowUserNameError = string.IsNullOrEmpty(UserName);
     }
@@ -211,18 +211,22 @@ public class RegisterPageViewModel : ViewModelBase
         IsPassword = !IsPassword;
     }
     #endregion
-    public string User_Type
+    #region Usertype
+
+    private string userType;
+    public string UserType
     {
         get
         {
-            return user_type;
+            return userType;
         }
         set
         {
-            user_type = value;
-            OnPropertyChanged(nameof(User_Type));
+            userType = value;
+            OnPropertyChanged(nameof(UserType));
         }
     }
+
     public bool IsBabySiterChecked
     {
         get { return isBabySiterChecked; }
@@ -231,7 +235,7 @@ public class RegisterPageViewModel : ViewModelBase
             isBabySiterChecked = value;
             if (IsBabySiterChecked)
             {
-                User_Type = "1"; // עדכון ל-1 עבור בייביסיטר
+                UserType = "1"; // עדכון ל-1 עבור בייביסיטר
                 IsParentChecked = false; // Uncheck the Buyer radio button
             }
             OnPropertyChanged(nameof(IsBabySiterChecked));
@@ -245,92 +249,228 @@ public class RegisterPageViewModel : ViewModelBase
             isParentChecked = value;
             if (IsParentChecked)
             {
-                User_Type = "2"; // עדכון ל-2 עבור הורה
+                UserType = "2"; // עדכון ל-2 עבור הורה
                 IsBabySiterChecked = false; // Uncheck the Buyer radio button
             }
             OnPropertyChanged(nameof(IsParentChecked));
         }
     }
-
+    #endregion
+    #region birthDate
     public DateTime BirthDate
     {
-        get { return birthDate; }
+        get => birthDate;
         set
         {
             birthDate = value;
-            OnPropertyChanged();
+            ValidateName();
+            OnPropertyChanged("BirthDate");
         }
     }
+  
     public DateTime MaxDate
     {
         get { return DateTime.Now.AddYears(-15); }
     }
+    #endregion birthDate
 
+    #region experience
+    private int experience;
 
     public int Experience
     {
-        get { return experience; }
+        get => experience;
         set
         {
             experience = value;
-            OnPropertyChanged();
+            ValidateExperience();
+            OnPropertyChanged("Experience");
         }
     }
+    private string experienceError;
+    public string ExperienceError
+    {
+        get => experienceError;
+        set
+        {
+            experienceError = value;
+            OnPropertyChanged("experienceError");
+        }
+    }
+
+    private bool showExperienceError;
+    public bool ShowExperienceError
+    {
+        get => showExperienceError;
+        set
+        {
+            showExperienceError = value;
+            OnPropertyChanged("ShowExperienceError");
+        }
+    }
+    private void ValidateExperience()
+    {
+        this.ShowExperienceError = Experience == 0;
+    }
+    #endregion experience
+    #region license
+
+    private bool haveLicense;
     public bool HaveLicense
     {
-        get { return haveLicense; }
+        get => haveLicense;
         set
         {
-            doesntHaveLicense = true;
             haveLicense = value;
-            OnPropertyChanged();
+            OnPropertyChanged("HaveLicense;");
         }
     }
-    public bool DoesntHaveLicense
+    #endregion license
+    #region kids
+
+    private int kids;
+    public int Kids
     {
-        get { return doesntHaveLicense; }
+        get => kids;
         set
         {
-            doesntHaveLicense = value;
-            haveLicense = false;
-            OnPropertyChanged();
+            kids = value;
+            ValidateKids();
+            OnPropertyChanged("Kids");
         }
     }
-    public int KidsN
+    private string kidsError;
+    public string KidsError
     {
-        get { return kidsN; }
+        get => kidsError;
         set
         {
-            kidsN = value;
-            OnPropertyChanged();
+            kidsError = value;
+            OnPropertyChanged("kidsError");
         }
     }
-    public bool HavePets
+    private bool showKidsError;
+
+    public bool ShowKidsError
     {
-        get { return havePets; }
+        get => showKidsError
+;
         set
         {
-            havePets = value;
-            OnPropertyChanged();
+            showKidsError=value;
+            OnPropertyChanged("ShowKidsError;");
         }
     }
-    public bool DoesntHavePets
+    
+    private void ValidateKids()
     {
-        get { return doesntHavePets; }
+        this.ShowKidsError = Kids == 0;
+    }
+    #endregion kids
+    #region pets
+    private bool pets;
+    public bool Pets
+    {
+        get => pets;
         set
         {
-            doesntHavePets = value;
-            OnPropertyChanged();
+            pets = value;
+            OnPropertyChanged("Pets");
         }
     }
+    #endregion pets
+    #region  Address
+    private string address;
+    public string Address
+    {
+        get => address;
+        set
+        {
+            address = value;
+            ValidateAddress();
+            OnPropertyChanged("Address");
+        }
+    }
+    private string addressError;
+    public string AddressError
+    {
+        get => addressError;
+        set
+        {
+            addressError = value;
+            OnPropertyChanged("AddressError");
+        }
+    }
+    private bool showAddressError;
 
-
-
-
+    public bool ShowAddressError
+    {
+        get => showAddressError;
+        set
+        {
+            showAddressError = value;
+            OnPropertyChanged(" ShowAddressError");
+        }
+    }
+    private void ValidateAddress()
+    {
+        this.ShowAddressError = string.IsNullOrEmpty(Address);
+    }
+    #endregion address
     public async void OnRegister()
     {
+        ValidateUserName();
+        ValidateEmail();
+        ValidatePassword();
 
+        if (!ShowUserNameError  && !ShowEmailError && !ShowPasswordError)
+        {
+            //Create a new AppUser object with the data from the registration form
+            var newUser = new Users()
+            {
+                UserName = UserName,
+                Email = Email,
+                Password = Password,
+                Address= Address,
+                UserType = UserType,
+            };
 
+            //Call the Register method on the proxy to register the new user
+            InServerCall = true;
+            if(userType=="1")
+            newUser = await proxy.RegisterBabysiter((Babysiter)newUser);
+            else
+            {
+                newUser = await proxy.RegisterParent((Parent)newUser);
+            }
+            InServerCall = false;
+
+            //If the registration was successful, navigate to the login page
+            if (newUser != null)
+            {
+                //UPload profile imae if needed
+                //if (!string.IsNullOrEmpty(LocalPhotoPath))
+                //{
+                //    await proxy.LoginAsync(new LoginInfo { Email = newUser.UserEmail, Password = newUser.UserPassword });
+                //    AppUser? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
+                //    if (updatedUser == null)
+                //    {
+                //        InServerCall = false;
+                //        await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
+                //    }
+                //}
+                InServerCall = false;
+
+                ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+            }
+            else
+            {
+
+                //If the registration failed, display an error message
+                string errorMsg = "Registration failed. Please try again.";
+                await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+            }
+        }
 
     }
 }

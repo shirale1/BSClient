@@ -11,7 +11,7 @@
         Text="Register page"
         TextColor="Purple"
            
-    />
+       />
 
         <ScrollView
             HorizontalScrollBarVisibility="Always"
@@ -26,26 +26,12 @@
       Text="Select the user type:"
       />
 
-      <StackLayout
-      Grid.Row="12"
-      Grid.ColumnSpan="2"
-      HorizontalOptions="Start"
-      Orientation="Horizontal" RadioButtonGroup.GroupName="UserType">
-          <!--  RadioButton בייביסיטר  -->
-          <RadioButton
-          Content="babysitter"
-          GroupName="UserType"
-          IsChecked="{Binding IsBabySiterChecked}"
-           />
+                <StackLayout RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserType}" Margin="20">
+                    <RadioButton Content="parent" Value="2"/>
+                    <RadioButton Content="babySitter" Value="1" IsChecked="True"/>
+                </StackLayout>
 
-          <!--  RadioButton הורה  -->
-          <RadioButton
-          Content="parent"
-          GroupName="UserType"
-          IsChecked="{Binding IsParentChecked}" />
-      </StackLayout>
-
-                <!-- User Name -->
+                <!-- UserName -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -89,15 +75,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Text="city" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
-                    <Label Text="{Binding City}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                    <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                 </Grid>
-                <Entry Placeholder="Type City" Text="{Binding Email}" Style="{StaticResource entryStyle}" />   
+                <Entry Placeholder="Type City" Text="{Binding City}" Style="{StaticResource entryStyle}" />   
            
 
 
-
                 <StackLayout IsVisible="{Binding IsBabySiterChecked}"> <!--אנטריז נוספים לבייביסיטר-->
-                    <Grid>  <!--להוסיף פקד לתאריך לידה-->
+                    <Grid>  <!-- פקד לתאריך לידה-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -107,7 +92,7 @@
                     <DatePicker Date="{Binding BirthDate}" MaximumDate="{Binding MaxDate}"/>
 
 
-                    <Grid>
+                    <Grid> <!--שנות ניסיון-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -119,26 +104,12 @@
                     <Entry Placeholder="Type Experience" Text="{Binding Experience}" Keyboard="Numeric" Style="{StaticResource entryStyle}" />
 
 
-
-                    <Label Text="License "  Style="{StaticResource labelNameStyle}" />
-
-                    <StackLayout
-                    Grid.Row="18"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Start"
-                    Orientation="Horizontal" RadioButtonGroup.GroupName="Havelicense" >
-                        <RadioButton
-                        Content="Yes"
-                        GroupName="HaveLicence"
-                        IsChecked="{Binding HaveLicense}"/>
-
-                   
-                    <RadioButton
-                        Content="No"
-                        GroupName="HaveLicence"
-                        IsChecked="{Binding DoesntHaveLicense}"/>
-                </StackLayout>
-                    
+                       <!--האם יש רישיון-->
+                    <StackLayout RadioButtonGroup.GroupName="License" RadioButtonGroup.SelectedValue="{Binding HaveLicense}" Margin="20">
+                        <RadioButton Content="yes" Value="true"/>
+                        <RadioButton Content="no" Value="false" IsChecked="True"/>
+                        
+                
                     </StackLayout>
                 
                 
@@ -153,39 +124,24 @@
                         <Label Text="kids" Grid.Column="0" Style="{StaticResource labelNameStyle}" />
                         <Label Text="{Binding KidsError}" IsVisible="{Binding ShowKidsError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                     </Grid>
-                    <Entry Placeholder="how many kids do you have?" Text="{Binding Kids}" Style="{StaticResource entryStyle}" />
+                    <Entry Placeholder="how many kids do you have?" Keyboard="Numeric" Text="{Binding Kids}" Style="{StaticResource entryStyle}" />
+
+                    <!--pets-->
+                        <StackLayout RadioButtonGroup.GroupName="Pets" RadioButtonGroup.SelectedValue="{Binding Pets}" Margin="20">
+                           
+                            <RadioButton Content="yes" Value="true"/>
+                            <RadioButton Content="no" Value="false" IsChecked="True"/>
+                        </StackLayout>
+                        <StackLayout/>
                     
-                    <Label
-                    x:Name="pets_lbl"
-                    Grid.Column="0"
-                    Margin="15"
-                    Text="do you have pets?"
-                    Grid.Row="21"
-                    />
-
-                    <RadioButton
-                    Content="Yes"
-                    GroupName="pets"
-                    IsChecked="{Binding HavePets}"/>
-
-
-                    <RadioButton
-                   Content="No"
-                   GroupName="pets"
-                   IsChecked="{Binding DoesntHavePets}"/>
-
-                 
-                </StackLayout>
-                 
-                <Button
+                        <Button
                     Grid.Row="13"
                     Grid.ColumnSpan="2"
-                    Command="{Binding RegistrationCommand}"
+                    Command="{Binding RegisterCommand}"
                     IsEnabled="{Binding CanRegister}"
                     Text="Send" />
 
-
             </VerticalStackLayout>
+           <StackLayout/>
         </ScrollView>
-    </StackLayout>
-</ContentPage>
+    </ContentPage>

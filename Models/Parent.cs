@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BSClient.Models
 {
-    internal class Parent:Users
+    public class Parent:Users
     {
         public Parent() { }
         public int KidsN { get; set; }
