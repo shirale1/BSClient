@@ -106,6 +106,7 @@
 
                        <!--האם יש רישיון-->
                     <StackLayout RadioButtonGroup.GroupName="License" RadioButtonGroup.SelectedValue="{Binding HaveLicense}" Margin="20">
+                        <Label Text="Do you have license?"/>
                         <RadioButton Content="yes" Value="true"/>
                         <RadioButton Content="no" Value="false" IsChecked="True"/>
                         
@@ -128,8 +129,8 @@
 
                         <!--pets-->
                         <StackLayout RadioButtonGroup.GroupName="Pets" RadioButtonGroup.SelectedValue="{Binding Pets}" Margin="20">
-
-                            <RadioButton Content="yes" Value="true"/>
+                        <Label Text="Do you have pets?"/>
+                        <RadioButton Content="yes" Value="true"/>
                             <RadioButton Content="no" Value="false" IsChecked="True"/>
                         </StackLayout>
 
