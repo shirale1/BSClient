@@ -4,12 +4,42 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BSClient.Views"
-    Shell.FlyoutBehavior="Disabled"
+    Shell.FlyoutBehavior="Flyout"
     Title="BSClient">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs">
 
-    <ShellContent
+        <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:Register}"
         Route="Login" />
+
+        <ShellContent
+       Title="Tips" Icon="profile.png"
+       ContentTemplate="{DataTemplate views:EditProfileView}"
+       Route="Profile" />
+        
+        <ShellContent
+       Title="WaitingList" Icon="maps.png"
+       ContentTemplate="{DataTemplate views:MapsView}"
+       Route="Maps" />
+        
+        <ShellContent IsVisible="{Binding IsManager}"
+       Title="Setting" Icon="manager2.png"
+       ContentTemplate="{DataTemplate views:ManagerReport}"
+       Route="Report" />
+        
+        <ShellContent IsVisible="{Binding IsParent}"  
+        Title="ParentHomePage" Icon="manager2.png"
+      ContentTemplate="{DataTemplate views:HomePageP}"
+      Route="Report" />
+        <!--addcommand parent-->
+        
+        <ShellContent IsVisible="{Binding IsBabySitter}"  
+        Title="BabySitterHomePage" Icon="manager2.png"
+        ContentTemplate="{DataTemplate views:HomePageB}"
+        Route="Report" />
+        <!--addcommand Isbabysittter-->
+    </FlyoutItem>
+    <MenuItem Text="Logout" Command="{Binding LogoutCommand}" />
 
 </Shell>
