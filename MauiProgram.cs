@@ -29,10 +29,17 @@ namespace BSClient
             builder.Services.AddTransient<HomePagePViewModel>();
             builder.Services.AddTransient<Tips>();
             builder.Services.AddTransient<TipsViewModel>();
-            builder.Services.AddTransient<WaitingList>();
-            builder.Services.AddTransient<WaitingListViewModel>();
+            builder.Services.AddTransient<WaitingListP>();
+            builder.Services.AddTransient<WaitingListPViewModel>();
+            builder.Services.AddTransient<WaitingListB>();
+            builder.Services.AddTransient<WaitingListBViewModel>();
+            builder.Services.AddTransient<Admin>();
+            builder.Services.AddTransient<AdminViewModel>();
+            builder.Services.AddTransient<Profile>();
+            builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddSingleton<BSWebAPIProxy>();
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<AppShellViewModel>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

@@ -258,6 +258,55 @@ public class RegisterPageViewModel : ViewModelBase
         }
     }
     #endregion
+
+    #region Gender
+
+    private string userType;
+    public string UserType
+    {
+        get
+        {
+            return userType;
+        }
+        set
+        {
+            userType = value;
+            if (value == "1")
+            {
+                IsBabySiterChecked = true;
+                IsParentChecked = false;
+            }
+            else
+            {
+                IsBabySiterChecked = false;
+                IsParentChecked = true;
+            }
+
+            OnPropertyChanged(nameof(UserType));
+        }
+    }
+
+    public bool IsBabySiterChecked
+    {
+        get { return isBabySiterChecked; }
+        set
+        {
+            isBabySiterChecked = value;
+
+            OnPropertyChanged(nameof(IsBabySiterChecked));
+        }
+    }
+    public bool IsParentChecked
+    {
+        get { return isParentChecked; }
+        set
+        {
+            isParentChecked = value;
+
+            OnPropertyChanged(nameof(IsParentChecked));
+        }
+    }
+    #endregion
     #region birthDate
     public DateTime BirthDate
     {

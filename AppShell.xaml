@@ -4,42 +4,74 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BSClient.Views"
-    Shell.FlyoutBehavior="Flyout"
-    Title="BSClient">
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs">
+    Title="BSClient"
+    Shell.FlyoutBehavior="Flyout">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="Parents" IsVisible="{Binding IsParent}">
 
         <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:Register}"
-        Route="Login" />
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomePageP}"
+            Icon="homepage.png"
+            Route="HomePageP" />
 
         <ShellContent
-       Title="Tips" Icon="profile.png"
-       ContentTemplate="{DataTemplate views:EditProfileView}"
-       Route="Profile" />
-        
+            Title="Tips"
+            ContentTemplate="{DataTemplate local:Tips}"
+            Icon="tips.png"
+            Route="Tips" />
+
         <ShellContent
-       Title="WaitingList" Icon="maps.png"
-       ContentTemplate="{DataTemplate views:MapsView}"
-       Route="Maps" />
-        
-        <ShellContent IsVisible="{Binding IsManager}"
-       Title="Setting" Icon="manager2.png"
-       ContentTemplate="{DataTemplate views:ManagerReport}"
-       Route="Report" />
-        
-        <ShellContent IsVisible="{Binding IsParent}"  
-        Title="ParentHomePage" Icon="manager2.png"
-      ContentTemplate="{DataTemplate views:HomePageP}"
-      Route="Report" />
-        <!--addcommand parent-->
-        
-        <ShellContent IsVisible="{Binding IsBabySitter}"  
-        Title="BabySitterHomePage" Icon="manager2.png"
-        ContentTemplate="{DataTemplate views:HomePageB}"
-        Route="Report" />
-        <!--addcommand Isbabysittter-->
+            Title="WaitingList"
+            ContentTemplate="{DataTemplate local:WaitingListP}"
+            Icon="waitinglist.png"
+            Route="WaitingListP" />
+
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate local:Profile}"
+            Icon="profile.png"
+            Route="Profile" />
+
     </FlyoutItem>
-    <MenuItem Text="Logout" Command="{Binding LogoutCommand}" />
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="Babysiters" IsVisible="{Binding IsBabySiter}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:HomePageB}"
+            Icon="homepage.png"
+            Route="HomePageB" />
+
+        <ShellContent
+            Title="Tips"
+            ContentTemplate="{DataTemplate local:Tips}"
+            Icon="tips.png"
+            Route="Tips" />
+
+        <ShellContent
+            Title="WaitingList"
+            ContentTemplate="{DataTemplate local:WaitingListB}"
+            Icon="waitinglist.png"
+            Route="WaitingListB" />
+
+        <ShellContent
+            Title="Profile"
+            ContentTemplate="{DataTemplate local:Profile}"
+            Icon="profile.png"
+            Route="Profile" />
+
+    </FlyoutItem>
+
+    <FlyoutItem  
+        FlyoutDisplayOptions="AsMultipleItems" Route="Admin" IsVisible="{Binding IsAdmin}">
+
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:Admin}"
+            Icon="homePage.png"
+            Route="Admin" 
+        />
+    </FlyoutItem>
+
+    <MenuItem Command="{Binding LogoutCommand}" Text="Logout" />
 
 </Shell>

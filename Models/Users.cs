@@ -20,6 +20,10 @@ namespace BSClient.Models
 
         public string UserType { get; set; } = null!;
 
+        public bool IsAdmin { get; set; }
+
+        public int Gender {  get; set; }    
+
         public Users() { }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BSClient.ViewModels
 {
-    internal class WaitingListViewModel:ViewModelBase
+    internal class WaitingListPViewModel:ViewModelBase
     {
     }
 }
