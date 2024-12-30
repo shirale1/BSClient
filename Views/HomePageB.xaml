@@ -3,10 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BSClient.Views.HomePageB"
              Title="HomePageB">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout VerticalOptions="FillAndExpand">
+
+        <Label
+        FontSize="50"
+        HorizontalOptions="Center"
+        Text="My Requirements"
+        TextColor="Purple"
+       />
+        <Label
+       FontSize="25"
+       HorizontalOptions="Start"
+       Text="let us know what your loking for"
+       />
+        
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Maximum kids to babysit"/>
+                <Entry Placeholder="Enter Maximum " Text="{Binding SaveKids}" Keyboard="Numeric" Style="{StaticResource entryStyle}" />
+        
+        <StackLayout RadioButtonGroup.GroupName="Pets" RadioButtonGroup.SelectedValue="{Binding Pets}" Margin="20">
+            <Label Text="Family with pets"/>
+            <RadioButton Content="Yes" Value="true" IsChecked="True"/>
+            <RadioButton Content="No" Value="false" />
+        </StackLayout>
+                
+                <Label Text="Maximum distance from me (in KM)"/>
+                <Entry Placeholder="Enter max distance" Text="{Binding Distance}" Keyboard="Numeric" Style="{StaticResource entryStyle}" />
+
+                <Label Text="Minimum payment"/>
+                <Entry Placeholder=" Enter minimum payment" Text="{Binding Payment}" Keyboard="Numeric" Style="{StaticResource entryStyle}" />
+        
+        <Button
+         Command="{Binding FilterCommand}"
+         Text="filter"
+            BackgroundColor="Black"
+            TextColor="White"
+        />
+            </StackLayout>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

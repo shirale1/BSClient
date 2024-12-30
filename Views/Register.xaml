@@ -18,18 +18,18 @@
             VerticalOptions="FillAndExpand"
             VerticalScrollBarVisibility="Always">
 
-            <VerticalStackLayout>
-                
-                  <Label
-      Grid.Row="11"
-      Margin="15"
-      Text="Select the user type:"
-      />
+            <StackLayout>
+                  
 
-                <StackLayout RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserType}" Margin="20">
-                    <RadioButton Content="parent" Value="2"/>
-                    <RadioButton Content="babySitter" Value="1" IsChecked="True"/>
-                </StackLayout>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="UserType" RadioButtonGroup.SelectedValue="{Binding UserType}" Margin="20">
+                <Label
+                 Grid.Row="11"
+                 Margin="15"
+                 Text="I am a"
+                />
+                <RadioButton Content="Parent" Value="2"/>
+                    <RadioButton Content="BabySitter" Value="1" IsChecked="True"/>
+                </HorizontalStackLayout>
 
                 <!-- UserName -->
                 <Grid>
@@ -79,15 +79,16 @@
                 </Grid>
                 <Entry Placeholder="Type Address" Text="{Binding Address}" Style="{StaticResource entryStyle}" />
 
-                <!-- מגדר-->
+                <!-- gender-->
                 <StackLayout RadioButtonGroup.GroupName="Gender" RadioButtonGroup.SelectedValue="{Binding Gender}" Margin="20">
                     <Label Text="Gender"/>
-                    <RadioButton Content="male" Value="true"/>
-                    <RadioButton Content="female" Value="false" IsChecked="True"/>
+                    <RadioButton Content="Male" Value="Male"/>
+                    <RadioButton Content="Female" Value="Female" IsChecked="True"/>
+                </StackLayout>
 
 
 
-                    <StackLayout IsVisible="{Binding IsBabySiterChecked}"> <!--אנטריז נוספים לבייביסיטר-->
+                <StackLayout IsVisible="{Binding IsBabySiterChecked}"> <!--אנטריז נוספים לבייביסיטר-->
                     <Grid>  <!-- פקד לתאריך לידה-->
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -115,10 +116,8 @@
                         <Label Text="Do you have license?"/>
                         <RadioButton Content="yes" Value="true"/>
                         <RadioButton Content="no" Value="false" IsChecked="True"/>
-                        
-                
-                    </StackLayout>
 
+                    </StackLayout>
                 </StackLayout>
                 <StackLayout IsVisible="{Binding IsParentChecked}">
                         <!--אנטריז נוספים להורה-->
@@ -140,16 +139,13 @@
                             <RadioButton Content="no" Value="false" IsChecked="True"/>
                         </StackLayout>
 
-
-                        
-                    
                 </StackLayout>
                 <Button
+              Command="{Binding RegisterCommand}"
+               Text="Send"
+                />
+            </StackLayout>
 
-Command="{Binding RegisterCommand}"
-IsEnabled="{Binding CanRegister}"
-Text="Send" />
-            </VerticalStackLayout>
         </ScrollView>
     </StackLayout>
-    </ContentPage>
+</ContentPage>

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BSClient.ViewModels
 {
-    internal class ProfileViewModel
+    internal class ProfileViewModel:ViewModelBase
     {
+
     }
 }

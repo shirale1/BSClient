@@ -23,6 +23,8 @@ public class RegisterPageViewModel : ViewModelBase
         EmailError = "Email is required";
         PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
         UserType = "1";
+        Gender = "Female";
+        HaveLicense = false;
 
     }
     
@@ -258,52 +260,15 @@ public class RegisterPageViewModel : ViewModelBase
         }
     }
     #endregion
-
     #region Gender
-
-    private string userType;
-    public string UserType
+    private string gender;
+    public string Gender
     {
-        get
-        {
-            return userType;
-        }
+        get => gender;
         set
         {
-            userType = value;
-            if (value == "1")
-            {
-                IsBabySiterChecked = true;
-                IsParentChecked = false;
-            }
-            else
-            {
-                IsBabySiterChecked = false;
-                IsParentChecked = true;
-            }
-
-            OnPropertyChanged(nameof(UserType));
-        }
-    }
-
-    public bool IsBabySiterChecked
-    {
-        get { return isBabySiterChecked; }
-        set
-        {
-            isBabySiterChecked = value;
-
-            OnPropertyChanged(nameof(IsBabySiterChecked));
-        }
-    }
-    public bool IsParentChecked
-    {
-        get { return isParentChecked; }
-        set
-        {
-            isParentChecked = value;
-
-            OnPropertyChanged(nameof(IsParentChecked));
+            gender = value;
+            OnPropertyChanged("Gender");
         }
     }
     #endregion
@@ -323,7 +288,6 @@ public class RegisterPageViewModel : ViewModelBase
         get { return DateTime.Now.AddYears(-15); }
     }
     #endregion birthDate
-
     #region experience
     private int experience;
 
@@ -486,7 +450,8 @@ public class RegisterPageViewModel : ViewModelBase
                     Address = Address,
                     UserType = UserType,
                     KidsN = Kids,
-                    Pets = Pets
+                    Pets = Pets,
+                    Gender = Gender
                 };
                 InServerCall = true;
                 p = await proxy.RegisterParent(p);
@@ -514,7 +479,8 @@ public class RegisterPageViewModel : ViewModelBase
                     UserType = UserType,
                     License = HaveLicense,
                     ExperienceY = Experience,
-                    BirthDate = DateOnly.FromDateTime(BirthDate)
+                    BirthDate = DateOnly.FromDateTime(BirthDate),
+                    Gender = Gender
                 };
                 InServerCall = true;
                 b = await proxy.RegisterBabysiter(b);
@@ -531,9 +497,7 @@ public class RegisterPageViewModel : ViewModelBase
                     await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
                 }
             }
-
-            
-            
+   
         }
 
     }
